@@ -31,33 +31,46 @@ class SeriesRules:
 
         results = []
         idIndex = 0
-
+        #Nom de lindicateur
+        print(key)
+        #diffrence entre les date pour determiner l<intervalle de date
+        print(diff)
+        print(diff.days)
+        #Nombre de donnee
+        print(df.shape[0])
         for i in range(df.shape[0]):
 
+            if diff.days == 1:
+                print(i)
             #day = indice 90/0
+            #Pour calculer le 3 mois, pour les donnee journaliere, on calcule a partir de la prmier donn/e jusqua la 90 jours ce qui fait 3 mois
             if diff.days == 1 and i-90 >= 0:
+                print(df[key][i])
+                print(df[key][i-90])
                 idIndex = 0
                 growth = (((df[key][i]/df[key][i-90])**(12/3))-1)*100
                 results.append(growth)
-                #print(growth)
-
+                print(growth)
+            #12 weeks
             #week = indice 12/0
             elif diff.days <= 7 and diff.days >=5 and i-12 >= 0:
                 idIndex = 1
                 growth = (((df[key][i]/df[key][i-12])**(12/3))-1)*100
                 results.append(growth)
                 #print(growth)
-
+            #3 mois
             #month = indice 3/0
             elif diff.days > 28 and diff.days < 32 and i-3 >= 0:
                 idIndex = 2
                 growth = (((df[key][i] /df[key][i-3])**(12/3))-1)*100
                 results.append(growth)
                 #print(growth)
-
+           # 1 regroupement de 3 mois
             #3 month = indice 1/0   
             elif diff.days >= 32 and i-1 >= 0:
                 idIndex = 3
+                #print(df[key][i])
+                #print(df[key][i-1])
                 growth = (((df[key][i] /df[key][i-1])**(12/3))-1)*100
                 results.append(growth)
                 #print(growth)
